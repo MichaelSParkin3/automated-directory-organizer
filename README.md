@@ -36,15 +36,18 @@ Into a clean and organized one:
 
 ## Usage
 
-1.  Run the `organize.py` script from your terminal:
+1.  Run the `organize.py` script from your terminal, providing the path to the directory you want to organize as a command-line argument:
     ```bash
-    python organize.py
+    python organize.py /path/to/your/folder
     ```
-2.  When prompted, enter the full path to the directory you want to organize:
-    ```
-    Enter the directory to organize: /path/to/your/folder
-    ```
-3.  The script will create the necessary subfolders and move the files accordingly.
+2.  The script will create the necessary subfolders and move the files accordingly.
+
+## Features
+
+- **Automatic Categorization:** Files are sorted into folders based on their extension.
+- **Duplicate File Handling:** If a file with the same name already exists in the destination folder, a number is appended to the new file's name to prevent overwriting.
+- **Hidden File Skipping:** Hidden files (those starting with a `.`) are automatically skipped.
+- **Error Handling:** The script includes error handling for common issues like permission errors, missing files, and directory-related conflicts.
 
 ## File Organization
 
@@ -57,3 +60,21 @@ The script organizes files into the following categories:
 - **Archives:** `.zip`, `.rar`, `.tar`, `.gz`, `.7z`
 - **Code:** `.py`, `.js`, `.java`, `.c`, `.cpp`, `.html`, `.css`
 - **Other:** Any other file types not listed above.
+
+## Testing
+
+This project uses `pytest` for testing. To run the tests, follow these steps:
+
+1.  Make sure you have `pytest` installed:
+    ```bash
+    pip install pytest
+    ```
+2.  Navigate to the project's root directory and run `pytest`:
+    ```bash
+    pytest
+    ```
+The tests will verify the script's core functionalities, including correct file mapping, handling of duplicate filenames, and ignoring target directories.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

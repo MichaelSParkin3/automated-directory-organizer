@@ -23,27 +23,13 @@ for folder, extensions in dict_file_types.items():
         flat_file_types[extension] = folder
 
 
-def main():
+def organize_directory(directory):
     """
     Organizes files in a specified directory by moving them into subdirectories
     based on their file extension.
     """
-    # Create an ArgumentParser object to handle command-line arguments.
-    parser = argparse.ArgumentParser(
-        description="Organize files in a directory based on their extension."
-    )
-
-    # Add an argument to the parser
-    # This tells the ArgumentParser what command-line arguments to expect.
-    parser.add_argument("directory", help="The directory to organize")
-
-    # Parse the arguments
-    # This will take the arguments passed to the script (e.g., 'python organize.py /path/to/directory')
-    # and return an object with the argument values.
-    args = parser.parse_args()
-
     # Get the directory path from the command-line arguments.
-    directoryInput = Path(args.directory)
+    directoryInput = Path(directory)
 
     # Get a list of all files in the specified directory.
     files = [f for f in directoryInput.iterdir() if f.is_file()]
@@ -67,7 +53,16 @@ def main():
                 destination_folder.mkdir()
 
             # Move the file to the destination folder.
-            file.rename(destination_folder / file.name)
+            destination_file = destination_folder / file.name
+            if destination_file.exists():
+                # If a file with the same name already exists, append a number to the filename.
+                i = 1
+                while destination_file.exists():
+                    destination_file = (
+                        destination_folder / f"{file.stem}_{i}{file.suffix}"
+                    )
+                    i += 1
+            file.rename(destination_file)
         except OSError as e:
             print(f"Error processing {file.name}: {e}")
         except PermissionError as e:
@@ -88,6 +83,28 @@ def main():
             print(f"An unexpected error occurred while processing {file.name}: {e}")
 
     print(f"Organization complete.")
+
+
+def main():
+    """
+    Organizes files in a specified directory by moving them into subdirectories
+    based on their file extension.
+    """
+    # Create an ArgumentParser object to handle command-line arguments.
+    parser = argparse.ArgumentParser(
+        description="Organize files in a directory based on their extension."
+    )
+
+    # Add an argument to the parser
+    # This tells the ArgumentParser what command-line arguments to expect.
+    parser.add_argument("directory", help="The directory to organize")
+
+    # Parse the arguments
+    # This will take the arguments passed to the script (e.g., 'python organize.py /path/to/directory')
+    # and return an object with the argument values.
+    args = parser.parse_args()
+
+    organize_directory(args.directory)
 
 
 if __name__ == "__main__":
