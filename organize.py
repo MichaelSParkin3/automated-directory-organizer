@@ -12,6 +12,12 @@ dict_file_types = {
     "Other": []
     }
 
+
+# Flatten dict_file_types to create a flat map dictionary
+flat_file_types = {}
+for folder, extensions in dict_file_types.items():
+    for extension in extensions:
+        flat_file_types[extension] = folder
     
 def main():
 
@@ -36,35 +42,14 @@ def main():
     # Create directories if they do not exist and move files accordingly
     for file in files:
         try:
-            print("Organizing file: " + file)
-            if file.suffix.lower() in dict_file_types["Images"]:
-                if not (directoryInput / "Images").exists():
-                    (directoryInput / "Images").mkdir()
-                file.rename(directoryInput / "Images" / file.name)
-            elif file.suffix.lower() in dict_file_types["Videos"]:
-                if not (directoryInput / "Videos").exists():
-                    (directoryInput / "Videos").mkdir()
-                file.rename(directoryInput / "Videos" / file.name)
-            elif file.suffix.lower() in dict_file_types["Documents"]:
-                if not (directoryInput / "Documents").exists():
-                    (directoryInput / "Documents").mkdir()
-                file.rename(directoryInput / "Documents" / file.name)
-            elif file.suffix.lower() in dict_file_types["Audio"]:
-                if not (directoryInput / "Audio").exists():
-                    (directoryInput / "Audio").mkdir()
-                file.rename(directoryInput / "Audio" / file.name)
-            elif file.suffix.lower() in dict_file_types["Archives"]:
-                if not (directoryInput / "Archives").exists():
-                    (directoryInput / "Archives").mkdir()
-                file.rename(directoryInput / "Archives" / file.name)
-            elif file.suffix.lower() in dict_file_types["Code"]:
-                if not (directoryInput / "Code").exists():
-                    (directoryInput / "Code").mkdir()
-                file.rename(directoryInput / "Code" / file.name)
-            else:
-                if not (directoryInput / "Other").exists():
-                    (directoryInput / "Other").mkdir()
-                file.rename(directoryInput / "Other" / file.name)
+            print("Organizing file: " + file.name)
+            folderName = flat_file_types.get(file.suffix.lower(), "Other")
+            # check if folder exists, if not create it
+            if not (directoryInput / folderName).exists():
+                #make folder with Pathlib
+                (directoryInput / folderName).mkdir()
+            #move file to folder
+            file.rename(directoryInput / folderName / file.name)
         except OSError as e:
             print(f"Error processing {file.name}: {e}")
 
