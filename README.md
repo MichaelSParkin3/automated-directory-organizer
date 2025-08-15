@@ -1,8 +1,8 @@
-# Automated Directory Organizer
+# 📁 Automated Directory Organizer
 
 This Python script automatically organizes files in a directory into categorized subfolders based on their file extension. It's a simple and effective way to clean up cluttered folders and maintain a structured file system.
 
-## Demonstration
+## ✨ Demonstration
 
 This script can turn a messy folder like this:
 
@@ -34,7 +34,7 @@ Into a clean and organized one:
     └── FileZilla.exe
 ```
 
-## Usage
+## 🚀 Usage
 
 1.  Run the `organize.py` script from your terminal, providing the path to the directory you want to organize as a command-line argument:
     ```bash
@@ -42,14 +42,14 @@ Into a clean and organized one:
     ```
 2.  The script will create the necessary subfolders and move the files accordingly.
 
-## Features
+## ⭐ Features
 
 - **Automatic Categorization:** Files are sorted into folders based on their extension.
 - **Duplicate File Handling:** If a file with the same name already exists in the destination folder, a number is appended to the new file's name to prevent overwriting.
 - **Hidden File Skipping:** Hidden files (those starting with a `.`) are automatically skipped.
 - **Error Handling:** The script includes error handling for common issues like permission errors, missing files, and directory-related conflicts.
 
-## File Organization
+## 🗄️ File Organization
 
 The script organizes files into the following categories:
 
@@ -61,7 +61,7 @@ The script organizes files into the following categories:
 - **Code:** `.py`, `.js`, `.java`, `.c`, `.cpp`, `.html`, `.css`
 - **Other:** Any other file types not listed above.
 
-## Testing
+## 🧪 Testing
 
 This project uses `pytest` for testing. To run the tests, follow these steps:
 
@@ -75,6 +75,6 @@ This project uses `pytest` for testing. To run the tests, follow these steps:
     ```
 The tests will verify the script's core functionalities, including correct file mapping, handling of duplicate filenames, and ignoring target directories.
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
